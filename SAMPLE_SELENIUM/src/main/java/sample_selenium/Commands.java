@@ -232,6 +232,113 @@ public void verifyDemoWebshopLoginCssSelector()
 	}
 	
 	
+	public void verifyIsSelected()
+	{
+		boolean isButtonSelected;
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demowebshop.tricentis.com/register");
+		driver.manage().window().maximize();
+		WebElement radiobuttonFemale=driver.findElement(By.xpath("//input[@id='gender-female']"));
+		isButtonSelected=radiobuttonFemale.isSelected();
+		System.out.println("Female element before selected : "+isButtonSelected);
+		radiobuttonFemale.click();
+		isButtonSelected=radiobuttonFemale.isSelected();
+		System.out.println("Female element after selected : "+isButtonSelected);
+		driver.close();
+	}
+	
+	public void verifyIsEnabled()
+	{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demowebshop.tricentis.com/");
+	driver.manage().window().maximize();
+	WebElement subscribeButton=driver.findElement(By.xpath("//input[@id='newsletter-subscribe-button']"));
+	boolean isButtonEnabled=subscribeButton.isEnabled();
+	System.out.println("Button is Enabled : "+isButtonEnabled);
+	driver.close();
+	}
+	
+	
+	public void verifyIsDisplayed()
+	{
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demowebshop.tricentis.com/");
+		driver.manage().window().maximize();
+		WebElement voteButton=driver.findElement(By.xpath("//input[@id='vote-poll-1']"));
+		boolean displayed=voteButton.isDisplayed();
+		System.out.println("vote button display status : "+displayed);
+		driver.close();	
+	}
+	
+	
+	public void cssSelectorTNAV()
+	{
+		
+		//CSS SELECTOR : TAG NAME, ATTRIBUTE AND VALUE
+		//             : tagname[attribute='value']
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demowebshop.tricentis.com/login");
+		driver.manage().window().maximize();
+		WebElement loginMenu=driver.findElement(By.cssSelector("a[class='ico-login']"));
+		loginMenu.click();
+		WebElement eMail=driver.findElement(By.cssSelector("input[id='Email']"));
+		eMail.sendKeys("noorajahangeer1996@gmail.com");
+		WebElement password=driver.findElement(By.cssSelector("input[id='Password']"));
+		password.sendKeys("noora1996");
+		WebElement loginButton=driver.findElement(By.cssSelector("input[class='button-1 login-button']"));
+		loginButton.click();
+		driver.close();	
+		
+	}
+	
+	
+	public void cssSelectorTNID()
+	{
+		//CSS SELECTOR : TAG NAME AND ID
+		//             : tagname#idvalue
+		//             : #idvalue
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demowebshop.tricentis.com/login");
+		driver.manage().window().maximize();
+		WebElement loginMenu=driver.findElement(By.cssSelector("a[class='ico-login']"));
+		loginMenu.click();
+		//WebElement eMail=driver.findElement(By.cssSelector("input#Email"));
+		WebElement eMail=driver.findElement(By.cssSelector("#Email"));
+		eMail.sendKeys("noorajahangeer1996@gmail.com");
+		//WebElement password=driver.findElement(By.cssSelector("input#Password"));
+		WebElement password=driver.findElement(By.cssSelector("#Password"));
+		password.sendKeys("noora1996");
+		WebElement loginButton=driver.findElement(By.cssSelector("input[class='button-1 login-button']"));
+		loginButton.click();
+		driver.close();	
+	
+	}
+	
+	
+	public void cssSelectorTNC()
+	{
+		//CSS SELECTOR : TAG NAME AND CLASSS
+		//             : tagname.classvalue
+		//             : .classvalue
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://demowebshop.tricentis.com/login");
+		driver.manage().window().maximize();
+		WebElement loginMenu=driver.findElement(By.cssSelector("a[class='ico-login']"));
+		loginMenu.click();
+		WebElement eMail=driver.findElement(By.cssSelector("input.email"));
+		//WebElement eMail=driver.findElement(By.cssSelector(".email"));
+		eMail.sendKeys("noorajahangeer1996@gmail.com");
+		WebElement password=driver.findElement(By.cssSelector("input.password"));
+		//WebElement password=driver.findElement(By.cssSelector(".password"));
+		password.sendKeys("noora1996");
+		WebElement loginButton=driver.findElement(By.cssSelector("input[class='button-1 login-button']"));
+		loginButton.click();
+		driver.close();	
+		
+		
+	}
+	
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Commands obj=new Commands();
@@ -242,8 +349,32 @@ public void verifyDemoWebshopLoginCssSelector()
 		//obj.verifyDemo2Registration();
 		//obj.verifyDemoWebshopLoginXpath();
 		//obj.verifyDemoWebshopLoginCssSelector();
-		obj.relativeXpath();
+		//obj.relativeXpath();
+		//obj.verifyIsSelected();
+		//obj.verifyIsEnabled();
+		//obj.verifyIsDisplayed();
+		//obj.cssSelectorTNAV();
+		//obj.cssSelectorTNID();
+		obj.cssSelectorTNC();
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
