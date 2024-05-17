@@ -1,11 +1,13 @@
 package sample_selenium;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class Commands {
 	
@@ -186,7 +188,7 @@ public void verifyDemoWebshopLoginCssSelector()
 	   //WebElement eMail=driver.findElement(By.xpath("//input[@name='Email']//parent::div"));                                        //using parent - error
 	   //WebElement eMail=driver.findElement(By.xpath("//div[@class='inputs']//label[@for='Email']//following-sibling::input"));        //using sibling
 	   //WebElement eMail=driver.findElement(By.xpath("//label[text()='Email:']"));                                                    //using text() - error
-	   WebElement eMail=driver.findElement(By.xpath("//input[contains(@id,'E')]"));                                                   //using contains()
+	   WebElement eMail=driver.findElement(By.xpath("//input[contains(@id,'Email')]"));                                                   //using contains()
 	   //WebElement eMail=driver.findElement(By.xpath("//input[starts-with(@name,'E')]"));                                           //using starts-with()
 	   eMail.sendKeys("noora@gmail.com");  
 	    
@@ -339,6 +341,153 @@ public void verifyDemoWebshopLoginCssSelector()
 	}
 	
 	
+	
+public void verifyValuesFromDropDown()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demo.guru99.com/test/newtours/register.php");
+	driver.manage().window().maximize();
+	WebElement countryList=driver.findElement(By.xpath("//select[@name='country']"));
+	Select select=new Select(countryList);
+	//select.selectByVisibleText("ANDORRA");           //select element using visible text
+	//select.selectByIndex(5);                           //select element by index position
+	select.selectByValue("AMERICAN SAMOA");              //select element using text value
+	WebElement getCountryName=select.getFirstSelectedOption();
+	System.out.println(getCountryName.getText());           //to print selected element in console
+	
+	
+	driver.close();
+	
+}
+	
+
+public void getTotalDropDownValues()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demo.guru99.com/test/newtours/register.php");
+	driver.manage().window().maximize();
+	WebElement countryList=driver.findElement(By.xpath("//select[@name='country']"));
+	Select select=new Select(countryList);
+	List<WebElement>dropdownlist=select.getOptions();
+	System.out.println("Total number of values in drop down list : "+dropdownlist.size());	
+}
+
+
+public void verifySingleInputField()             
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://selenium.qabible.in/simple-form-demo.php");
+	driver.manage().window().maximize();
+	
+	WebElement enterMessageField=driver.findElement(By.xpath("//input[@id='single-input-field']"));
+	enterMessageField.sendKeys("SINGLE INPUT FIELD DEMO CHECK");
+	
+	WebElement showMessageButton=driver.findElement(By.xpath("//button[@id='button-one']"));
+	showMessageButton.click();
+	
+	WebElement showText=driver.findElement(By.xpath("//div[@id='message-one']"));
+	String st=showText.getText();
+	System.out.println(st);	
+	
+	driver.close();
+}
+
+
+public void verifyTwoInputFields()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://selenium.qabible.in/simple-form-demo.php");
+	driver.manage().window().maximize();
+	
+	WebElement enterValueAField=driver.findElement(By.xpath("//input[@id='value-a']"));
+	enterValueAField.sendKeys("20");
+	
+	WebElement enterValueBField=driver.findElement(By.xpath("//input[@id='value-b']"));
+	enterValueBField.sendKeys("30");
+	
+	WebElement getTotalField=driver.findElement(By.xpath("//button[@id='button-two']"));
+	getTotalField.click();
+	
+	WebElement viewTotalField=driver.findElement(By.xpath("//div[@id='message-two']"));
+	String st=viewTotalField.getText();
+	System.out.println(st);
+	
+	driver.close();
+}
+
+
+public void verifyCheckBoxDemo()              
+{
+	boolean cb;
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://selenium.qabible.in/check-box-demo.php");
+	driver.manage().window().maximize();
+	
+	WebElement checkBox1=driver.findElement(By.xpath("//input[@id='gridCheck']"));
+	cb=checkBox1.isSelected();
+	
+	System.out.println("CHECKBOX SELECTION STATUS BEFORE SELECTED : "+cb);
+	checkBox1.click();
+	
+	cb=checkBox1.isSelected();
+	System.out.println("CHECKBOX SELECTION STATUS AFTER SELECTED : "+cb);
+	
+	WebElement showCheck=driver.findElement(By.xpath("//div[@id='message-one']"));
+	String st=showCheck.getText();
+	System.out.println("CHECK BOX SELECTION STATUS : "+st);
+	
+	driver.close();
+}
+
+
+public void verifyRadioButtonsDemo()            
+{
+	boolean rb;
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://selenium.qabible.in/radio-button-demo.php");
+	driver.manage().window().maximize();
+	
+	WebElement radioButton=driver.findElement(By.xpath("//input[@id='inlineRadio2']"));
+	rb=radioButton.isSelected();
+	System.out.println("RADIO BUTTON SELECTION STATUS BEFORE SELECETION : "+rb);
+	
+	radioButton.click();
+	rb=radioButton.isSelected();
+	System.out.println("RADIO BUTTON SELECTION STATUS AFTER SELECETION : "+rb);
+	
+	WebElement showSelectedValueButton=driver.findElement(By.xpath("//button[@id='button-one']"));
+	showSelectedValueButton.click();
+	
+	WebElement radioSelectionText=driver.findElement(By.xpath("//div[@id='message-one']"));
+	String st=radioSelectionText.getText();
+	System.out.println("SELECTED GENDER IN CHECKBOX : "+st);
+
+	driver.close();
+}
+
+
+public void verifyColorFromDropDown()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://selenium.qabible.in/select-input.php");
+	driver.manage().window().maximize();
+	
+	WebElement colorDropList=driver.findElement(By.xpath("//select[@id='single-input-field']"));
+	Select select=new Select(colorDropList);
+	select.selectByValue("Red");
+	
+	//select.selectByValue("Yellow");
+	//select.selectByIndex(2);
+	//select.selectByIndex(3);
+	//select.selectByVisibleText("Green");
+	//select.selectByVisibleText("Yellow");
+	
+	WebElement selectedColor=select.getFirstSelectedOption();
+	System.out.println("FIRST SELECETED COLOR : "+selectedColor.getText());
+	
+	driver.close();
+}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Commands obj=new Commands();
@@ -354,15 +503,19 @@ public void verifyDemoWebshopLoginCssSelector()
 		//obj.verifyIsEnabled();
 		//obj.verifyIsDisplayed();
 		//obj.cssSelectorTNAV();
+		//obj.cssSelectorTNC(); 
 		//obj.cssSelectorTNID();
-		obj.cssSelectorTNC();
+		//obj.verifyValuesFromDropDown();
+		//obj.getTotalDropDownValues();
+		//obj.verifySingleInputField();
+		//obj.verifyTwoInputFields();
+		//obj.verifyCheckBoxDemo();
+		//obj.verifyRadioButtonsDemo();
+		obj.verifyColorFromDropDown();
 		
-	}
-	
-	
-	
-	
-	
+		
+		
+	};
 	
 	
 	
