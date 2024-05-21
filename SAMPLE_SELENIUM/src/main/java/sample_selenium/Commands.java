@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 public class Commands {
@@ -585,6 +586,106 @@ public void verifyCustomerForm()
 	
 }
 
+//**********MOUSE ACTIONS************
+
+
+public void verifyRightClick()
+{
+	
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demo.guru99.com/test/simple_context_menu.html");
+	driver.manage().window().maximize();
+	
+	WebElement rightClick=driver.findElement(By.xpath("//span[@class='context-menu-one btn btn-neutral']"));
+	Actions actions=new Actions(driver);
+	actions.contextClick(rightClick).build().perform();       //to perform right click
+	
+	driver.close();	
+	
+}
+
+
+
+public void verifyDoubleClick()
+{
+	
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demo.guru99.com/test/simple_context_menu.html");
+	driver.manage().window().maximize();
+	
+	WebElement doubleClick=driver.findElement(By.xpath("//button[text()='Double-Click Me To See Alert']"));
+	Actions actions=new Actions(driver);
+	actions.doubleClick(doubleClick).build().perform();
+	
+	Alert alert=driver.switchTo().alert();
+	String st=alert.getText();
+	System.out.println(st);
+	
+	alert.accept();
+	
+	driver.close();
+	
+}
+
+
+
+public void verifyDragAndDrop()
+{
+	
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demoqa.com/droppable");
+	driver.manage().window().maximize();
+	
+	WebElement dragButton=driver.findElement(By.xpath("//div[@id='draggable']"));
+	
+	WebElement dropButton=driver.findElement(By.xpath("//div[@id='simpleDropContainer']//div[@id='droppable']"));
+	
+	Actions actions=new Actions(driver);
+	actions.dragAndDrop(dragButton, dropButton).build().perform();
+	
+	driver.close();	
+	
+}
+
+
+
+public void verifyDragAndDropOffset()
+{
+	
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demoqa.com/dragabble");
+	driver.manage().window().maximize();
+	
+	WebElement dragButton=driver.findElement(By.xpath("//div[@id='dragBox']"));
+	
+	Actions actions=new Actions(driver);
+	actions.dragAndDropBy(dragButton, 150, 100).build().perform();
+	
+	driver.close();
+	
+}
+
+
+
+public void verifyMouseOver()
+{
+	
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demoqa.com/menu/");
+	driver.manage().window().maximize();
+	
+	WebElement mainListMenu=driver.findElement(By.xpath("//a[text()='Main Item 2']"));
+	
+	Actions actions=new Actions(driver);
+	actions.moveToElement(mainListMenu).build().perform();
+	
+	WebElement subListMenu=driver.findElement(By.xpath("//a[text()='SUB SUB LIST »']"));
+	actions.moveToElement(subListMenu).build().perform();
+	
+	driver.close();
+	
+}
+
 
 
 	public static void main(String[] args) {
@@ -614,21 +715,19 @@ public void verifyCustomerForm()
 		//obj.verifySimpleAlert();
 		//obj.verifyConfirmationAlert();
 		//obj.verifypromptAlert();
-		obj.verifyCustomerForm();
+		//obj.verifyCustomerForm();
+		//obj.verifyRightClick();
+		//obj.verifyDoubleClick();
+		//obj.verifyDragAndDrop();
+		//obj.verifyDragAndDropOffset();
+		obj.verifyMouseOver();
+		
+		
+		
+		
+		
 		
 	};
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
 }
