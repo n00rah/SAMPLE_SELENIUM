@@ -687,6 +687,75 @@ public void verifyMouseOver()
 }
 
 
+//**************FILE UPLOAD****************
+
+
+public void verifyFileUpload()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demo.guru99.com/test/upload/");
+	driver.manage().window().maximize();
+	
+	WebElement chooseFileButton=driver.findElement(By.xpath("//input[@id='uploadfile_0']"));
+	chooseFileButton.sendKeys("C:\\Users\\NOORA\\git\\SAMPLE_SELENIUM\\SAMPLE_SELENIUM\\src\\main\\resources\\SELENIUM.docx");
+	
+	WebElement checkBoxButton=driver.findElement(By.xpath("//input[@id='terms']"));
+	checkBoxButton.click();
+	
+	WebElement submitButton=driver.findElement(By.xpath("//button[@id='submitbutton']"));
+	submitButton.click();
+	
+	driver.close();
+	
+}
+
+
+public void fileUploadPractice()
+{
+	
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demo.guru99.com/test/upload/");
+	driver.manage().window().maximize();
+	
+	WebElement chooseFileButton=driver.findElement(By.xpath("//input[@id='uploadfile_0']"));
+	chooseFileButton.sendKeys("C:\\Users\\NOORA\\git\\SAMPLE_SELENIUM\\SAMPLE_SELENIUM\\src\\main\\resources\\istqbreg.docx");
+	
+	WebElement checkBoxButton=driver.findElement(By.xpath("//input[@id='terms']"));
+	checkBoxButton.click();
+	
+	WebElement submitButton=driver.findElement(By.xpath("//button[@id='submitbutton']"));
+	submitButton.click();
+	
+	driver.close();	
+	
+}
+
+public void verifyDragNDrop()
+{
+	
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://selenium.qabible.in/drag-drop.php");
+	driver.manage().window().maximize();
+	
+	WebElement dragField1=driver.findElement(By.xpath("//span[text()='Draggable n°1']"));
+	WebElement dragField2=driver.findElement(By.xpath("//span[text()='Draggable n°2']"));
+	WebElement dragField3=driver.findElement(By.xpath("//span[text()='Draggable n°3']"));
+	WebElement dragField4=driver.findElement(By.xpath("//span[text()='Draggable n°4']"));
+	
+	WebElement dropField=driver.findElement(By.xpath("//div[@id='mydropzone']"));
+	
+	Actions actions=new Actions(driver);
+	
+	actions.dragAndDrop(dragField1, dropField).build().perform();
+	actions.dragAndDrop(dragField2, dropField).build().perform();
+	actions.dragAndDrop(dragField3, dropField).build().perform();
+	actions.dragAndDrop(dragField4, dropField).build().perform();
+	
+	driver.close();
+}
+
+
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -720,7 +789,10 @@ public void verifyMouseOver()
 		//obj.verifyDoubleClick();
 		//obj.verifyDragAndDrop();
 		//obj.verifyDragAndDropOffset();
-		obj.verifyMouseOver();
+		//obj.verifyMouseOver();
+		//obj.verifyFileUpload();
+		//obj.fileUploadPractice();
+		obj.verifyDragNDrop();
 		
 		
 		
