@@ -1,6 +1,8 @@
 package sample_selenium;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
@@ -755,7 +757,155 @@ public void verifyDragNDrop()
 }
 
 
+public void verifyFrames()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demoqa.com/frames");
+	driver.manage().window().maximize();
+	
+	List<WebElement> iFrameTags=driver.findElements(By.tagName("iframe"));
+	int numberOfTags=iFrameTags.size();
+	System.out.println("NUMBER OF IFRAME TAGS : "+numberOfTags);
+	
+	//driver.switchTo().frame(3);
+	//driver.switchTo().frame("frame1");
+	WebElement frame1=driver.findElement(By.xpath("//iframe[@id='frame1']"));
+	driver.switchTo().frame(frame1);             //to switch to a frame from a web page
+	
+	WebElement frame1Text=driver.findElement(By.xpath("//h1[@id='sampleHeading']"));
+	String st1=frame1Text.getText();
+	System.out.println("FIRST FRAME TEXT : "+st1);
+	
+	 driver.switchTo().defaultContent();    //to switch to web page from a frame
+	
+	driver.close();
+}
 
+
+public void verifyFramesAssignment()
+{
+	
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://www.hyrtutorials.com/p/frames-practice.html");
+	driver.manage().window().maximize();
+	
+	List<WebElement> iFrameTags=driver.findElements(By.tagName("iframe"));
+	int numberOfTags=iFrameTags.size();
+	System.out.println("NUMBER OF IFRAME TAGS : "+numberOfTags);
+	
+	
+	WebElement webpageTextBox=driver.findElement(By.xpath("//input[@id='name' and @class='frmTextBox']"));
+	webpageTextBox.sendKeys("FRAMES");
+	
+	WebElement frame1=driver.findElement(By.id("frm1"));
+	driver.switchTo().frame(frame1);
+	
+	WebElement frame1DropDown=driver.findElement(By.id("course"));
+	Select select=new Select(frame1DropDown);
+	select.selectByIndex(3);
+	
+	WebElement selectedCourse1=select.getFirstSelectedOption();
+	System.out.println("FRAME 1 SELECTED COURSE : "+selectedCourse1.getText());
+	
+	
+	driver.switchTo().defaultContent();
+	
+	
+	WebElement frame2=driver.findElement(By.id("frm2"));
+	driver.switchTo().frame(frame2);
+	
+	WebElement frame2DropDown=driver.findElement(By.id("selectnav1"));
+	Select select1=new Select(frame2DropDown);
+	select1.selectByIndex(3);
+	
+	//WebElement selectedCourse2=select.getFirstSelectedOption();
+	//System.out.println("FRAME 2 SELECTED COURSE : "+selectedCourse2.getText());
+	
+	driver.switchTo().defaultContent();
+	
+	System.out.println("OUT FROM FRAME 2");
+	
+	WebElement backToWebpage=driver.findElement(By.xpath("//*[@id=\"Blog1\"]/div[1]/div/div[1]/div[1]/div/h1"));
+	String str=backToWebpage.getText();
+	System.out.println("******BACK TO WEBPAGE****** "+str);
+	
+	WebElement frame3=driver.findElement(By.id("frm3"));
+	driver.switchTo().frame(frame3);
+	
+	WebElement frame3Text=driver.findElement(By.id("name"));
+	frame3Text.sendKeys("FRAME 3");
+	String str1=frame3Text.getText();
+	System.out.println("FRAME 3 TEXT : "+str1);
+	
+	WebElement frame31=driver.findElement(By.id("frm1"));
+	driver.switchTo().frame(frame31);
+	
+	WebElement frame31Heading=driver.findElement(By.xpath("//*[@id=\"Blog1\"]/div[1]/div/div[1]/div[1]/div/h1"));
+	String str2=frame31Heading.getText();
+	System.out.println("FRAME 31 HEADING : "+str2);
+	
+	WebElement frame31DropDown=driver.findElement(By.id("selectnav1"));
+	Select select2=new Select(frame31DropDown);
+	select2.selectByIndex(4);
+	
+	WebElement frame31DropDownText=select2.getFirstSelectedOption();
+	System.out.println("FRAME 31 DROPDOWN OPTION : "+frame31DropDownText.getText());
+	
+	//WebElement frame32=driver.findElement(By.id("frm2"));
+	//driver.switchTo().frame(frame32);
+	
+	driver.switchTo().defaultContent();
+	
+	System.out.println("******OUT FROM FRAME3******");
+	
+	WebElement backToWebpage1=driver.findElement(By.xpath("//*[@id=\"Blog1\"]/div[1]/div/div[1]/div[1]/div/h1"));
+	String str3=backToWebpage1.getText();
+	System.out.println("******AGAIN BACK TO WEBPAGE****** "+str3);
+	
+	driver.close();
+}
+
+
+public void verifyMultipleWindowHandling()
+{
+	
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demo.guru99.com/popup.php");
+	driver.manage().window().maximize();
+	
+	String parentWindowHandle=driver.getWindowHandle();
+	System.out.println(parentWindowHandle);
+	
+	WebElement clickButton=driver.findElement(By.xpath("//a[text()='Click Here']"));
+	clickButton.click();
+	
+	Set<String>windowHandles=driver.getWindowHandles();
+	System.out.println(windowHandles);
+	
+	Iterator<String> values=windowHandles.iterator();
+	while(values.hasNext())
+	{
+		String handleId=values.next();
+		if(!handleId.equals(parentWindowHandle))
+		{
+			driver.switchTo().window(handleId);
+			WebElement eMailIdField=driver.findElement(By.xpath("//input[@name='emailid']"));
+			eMailIdField.sendKeys("noora@gmail.com");
+			
+			WebElement submitField=driver.findElement(By.xpath("//input[@name='btnLogin']"));
+			submitField.click();
+			
+			driver.switchTo().defaultContent();
+			
+			//driver.close();
+		}
+		
+	}
+	
+	//driver.quit();
+	
+	
+}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -792,9 +942,10 @@ public void verifyDragNDrop()
 		//obj.verifyMouseOver();
 		//obj.verifyFileUpload();
 		//obj.fileUploadPractice();
-		obj.verifyDragNDrop();
-		
-		
+		//obj.verifyDragNDrop();
+		//obj.verifyFrames();
+		obj.verifyFramesAssignment();
+		//obj.verifyMultipleWindowHandling();
 		
 		
 		
