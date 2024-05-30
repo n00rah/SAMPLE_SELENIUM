@@ -1,6 +1,12 @@
 package org.TestNGCommands;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -119,7 +125,84 @@ public void verifyDemoWebShopRegisterIsDisplayed()
 }
 
 
+@Test
 
+public void verifyJavaScriptExecutorSendkeysAndClick()
+{
+	
+	driver.get("https://demowebshop.tricentis.com/");	
+	JavascriptExecutor js=(JavascriptExecutor) driver;
+	js.executeScript("document.getElementById(\"newsletter-email\").value='test@test.com'");
+	js.executeAsyncScript("document.getElementById(\"newsletter-subscribe-button\").click()");
+	
+}
+
+@Test
+
+public void verifyVerticalScroll()
+{
+
+	driver.get("https://demowebshop.tricentis.com/");	
+	JavascriptExecutor js=(JavascriptExecutor) driver;
+	js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+	
+}
+
+@Test
+
+
+public void verifyKeyboardEvents() throws AWTException
+{
+	driver.get("https://demowebshop.tricentis.com/");
+	Robot robot=new Robot();
+	robot.keyPress(KeyEvent.VK_CONTROL);
+	robot.keyPress(KeyEvent.VK_T);
+	robot.keyRelease(KeyEvent.VK_CONTROL);
+	robot.keyRelease(KeyEvent.VK_T);
+	
+}
+
+@Test
+
+public void verifyDemoWebshopLoginJavaScripExecutor()
+{
+	driver.get("https://demowebshop.tricentis.com/");
+	
+	WebElement loginMenu=driver.findElement(By.xpath("//a[@class='ico-login']"));
+	loginMenu.click();
+	
+	JavascriptExecutor js=(JavascriptExecutor) driver;
+	js.executeScript("document.getElementById(\"Email\").value='noora@gmail.com'");
+	js.executeScript("document.getElementById(\"Password\").value='noora1996'");
+	
+	WebElement loginButton=driver.findElement(By.xpath("//input[@class='button-1 login-button']"));
+	loginButton.click();
+	
+	js.executeScript("window.scrollTo(0,document.body.scrollHeight)");	
+	
+}
+
+@Test
+
+public void verifyAlertScroll()
+{
+	driver.get("https://demoqa.com/alerts");
+	
+	JavascriptExecutor js=(JavascriptExecutor) driver;
+	js.executeScript("window.scrollBy(0,100)");
+	js.executeScript("document.getElementById(\"alertButton\").click()");
+	
+	Alert alert=driver.switchTo().alert();
+	alert.accept();
+	
+	js.executeScript("document.getElementById(\"confirmButton\").click()");
+	alert.dismiss();
+	
+	WebElement alertMessageField=driver.findElement(By.xpath("//span[@id='confirmResult']"));
+	String alertStatus=alertMessageField.getText();
+	System.out.println(alertStatus);
+
+}
 
 
 

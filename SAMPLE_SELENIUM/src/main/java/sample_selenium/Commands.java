@@ -344,7 +344,7 @@ public void verifyDemoWebshopLoginCssSelector()
 		
 	}
 	
-	
+//*******TO GET SINGLE DROP DOWN VALUE*******	
 	
 public void verifyValuesFromDropDown()
 {
@@ -354,8 +354,8 @@ public void verifyValuesFromDropDown()
 	WebElement countryList=driver.findElement(By.xpath("//select[@name='country']"));
 	Select select=new Select(countryList);
 	//select.selectByVisibleText("ANDORRA");           //select element using visible text
-	//select.selectByIndex(5);                           //select element by index position
-	select.selectByValue("AMERICAN SAMOA");              //select element using text value
+	select.selectByIndex(5);                           //select element by index position
+	//select.selectByValue("AMERICAN SAMOA");              //select element using text value
 	WebElement getCountryName=select.getFirstSelectedOption();
 	System.out.println(getCountryName.getText());           //to print selected element in console
 	
@@ -364,7 +364,7 @@ public void verifyValuesFromDropDown()
 	
 }
 	
-
+//*********TO GET TOTAL NUMBER OF DROP DOWN VALUES*********
 public void getTotalDropDownValues()
 {
 	WebDriver driver=new ChromeDriver();
@@ -376,6 +376,24 @@ public void getTotalDropDownValues()
 	System.out.println("Total number of values in drop down list : "+dropdownlist.size());	
 }
 
+//*******TO PRINT ALL DROPDOWN VALUES********
+public void printAllDropDownValues()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demo.guru99.com/test/newtours/register.php");
+	driver.manage().window().maximize();
+	
+	WebElement countryList=driver.findElement(By.xpath("//select[@name='country']"));
+	Select select=new Select(countryList);
+	
+	List<WebElement>dropdownlist=select.getOptions();
+	for(WebElement i:dropdownlist)
+	{
+		System.out.println(i.getText());
+	}
+	
+	driver.close();
+}
 
 public void verifySingleInputField()             
 {
@@ -898,14 +916,20 @@ public void verifyMultipleWindowHandling()
 			driver.switchTo().defaultContent();
 			
 			//driver.close();
-		}
-		
+		}	
 	}
-	
 	//driver.quit();
+}
+
+public void practice()
+{
 	
 	
 }
+	
+	
+	
+	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -926,6 +950,7 @@ public void verifyMultipleWindowHandling()
 		//obj.cssSelectorTNID();
 		//obj.verifyValuesFromDropDown();
 		//obj.getTotalDropDownValues();
+		//obj.printAllDropDownValues();
 		//obj.verifySingleInputField();
 		//obj.verifyTwoInputFields();
 		//obj.verifyCheckBoxDemo();
@@ -944,8 +969,9 @@ public void verifyMultipleWindowHandling()
 		//obj.fileUploadPractice();
 		//obj.verifyDragNDrop();
 		//obj.verifyFrames();
-		obj.verifyFramesAssignment();
+		//obj.verifyFramesAssignment();
 		//obj.verifyMultipleWindowHandling();
+		obj.practice();
 		
 		
 		
