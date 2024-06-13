@@ -1,5 +1,6 @@
 package sample_selenium;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -900,6 +901,7 @@ public void verifyMultipleWindowHandling()
 	Set<String>windowHandles=driver.getWindowHandles();
 	System.out.println(windowHandles);
 	
+	
 	Iterator<String> values=windowHandles.iterator();
 	while(values.hasNext())
 	{
@@ -923,8 +925,65 @@ public void verifyMultipleWindowHandling()
 
 public void practice()
 {
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demo.guru99.com/popup.php");
+	driver.manage().window().maximize();
 	
+	String phandle=driver.getWindowHandle();
+	System.out.println(phandle);
 	
+	WebElement clickbutton=driver.findElement(By.xpath("//a[text()='Click Here']"));
+	clickbutton.click();
+	
+	Set<String> allHandles=driver.getWindowHandles();
+	System.out.println("all handles : "+allHandles);
+	
+	Iterator<String> itr=allHandles.iterator();
+	while(itr.hasNext())
+	{
+		String id=itr.next();
+		if(!id.equals(phandle))
+		{
+			driver.switchTo().window(id);
+			
+			WebElement eMail=driver.findElement(By.xpath("//input[@name='emailid']"));
+			eMail.sendKeys("ayaan@gmail.com");
+			
+			WebElement clickk=driver.findElement(By.xpath("//input[@name='btnLogin']"));
+			clickk.click();
+		}
+		
+	}
+	driver.quit();
+}
+
+
+public void collections()
+{
+	ArrayList<String> one=new ArrayList<String>();
+	one.add("ayaan");
+	one.add("sidharth");
+	one.add("vinayak");
+	one.add("jonathan");
+	one.add("dhyan");
+	one.add("ayaan");
+	for(String i:one)
+	{
+		//System.out.println("****Boys****");
+		System.out.println(i);
+	}
+
+	ArrayList<String> two=new ArrayList<String>();
+	two.add("inaaya");
+	two.add("alayna");
+	two.add("suhana");
+	two.add("aradhya");
+	two.add("meenakshi");
+	for(String i:two)
+	{
+		//System.out.println("****Girls****");
+		System.out.println(i);
+	}
 }
 	
 	
@@ -971,8 +1030,8 @@ public void practice()
 		//obj.verifyFrames();
 		//obj.verifyFramesAssignment();
 		//obj.verifyMultipleWindowHandling();
-		obj.practice();
-		
+		//obj.practice();
+		obj.collections();
 		
 		
 		

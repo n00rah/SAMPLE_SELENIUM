@@ -1,4 +1,4 @@
-package org.TestNGCommands;
+package automationCore;
 
 import java.io.File;
 
@@ -13,8 +13,8 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
-public class BrowserLaunch {
-WebDriver driver;
+public class Base {
+	protected WebDriver driver;
 	public void initialiseBrowser(String browser)
 	{
 		if(browser.equals("Chrome"))
@@ -60,4 +60,3 @@ public void takeScreenShot(ITestResult result) throws Exception
 	
 }
 }
-
